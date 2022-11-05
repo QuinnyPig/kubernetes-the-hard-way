@@ -49,7 +49,7 @@ export INTERNETGW=$(aws ec2 create-internet-gateway --query InternetGateway.Inte
 aws ec2 attach-internet-gateway --vpc-id $VPC --internet-gateway-id $INTERNETGW
 ```
 
-Create and attach a route table that tells instances in that subnet to use the internet gateway, and set the subnet to automatially map public IP addresses to private IP addresses on launch:
+Create and attach a route table that tells instances in that subnet to use the internet gateway, set the subnet to automatially map public IP addresses to private IP addresses on launch, and associate the subnet to the route table:
 
 ```
 export ROUTETABLE=$(aws ec2 create-route-table --vpc-id $VPC --query RouteTable.RouteTableId --output text)
@@ -57,6 +57,7 @@ echo $ROUTETABLE
 # rtb-02c3ef4e030f0d5b2
 aws ec2 create-route --route-table-id $ROUTETABLE --destination-cidr-block 0.0.0.0/0 --gateway-id $INTERNETGW
 aws ec2 modify-subnet-attribute --subnet-id $SUBNET --map-public-ip-on-launch
+aws ec2 associate-route-table --route-table-id $ROUTETABLE --subnet-id $SUBNET
 
 ```
 
@@ -72,7 +73,17 @@ aws ec2 describe-route-tables --route-table-id $ROUTETABLE
 {
     "RouteTables": [
         {
-            "Associations": [],
+            "Associations": [
+                {
+                    "Main": false,
+                    "RouteTableAssociationId": "rtbassoc-0a64eeb557b5462f1",
+                    "RouteTableId": "rtb-02c3ef4e030f0d5b2",
+                    "SubnetId": "subnet-0d6f9fc23c2a159da",
+                    "AssociationState": {
+                        "State": "associated"
+                    }
+                }
+            ],
             "PropagatingVgws": [],
             "RouteTableId": "rtb-02c3ef4e030f0d5b2",
             "Routes": [
