@@ -116,7 +116,7 @@ aws ec2 authorize-security-group-ingress --group-id $SECURITYGROUP --protocol al
 List the firewall rules in the `kubernetes-the-hard-way` VPC network:
 
 ```
-aws ec2 describe-security-group-rules --filter Name="group-id",Values=$SECURITYGROUP --output text                                  <aws:jobboard-dev>
+aws ec2 describe-security-group-rules --filter Name="group-id",Values=$SECURITYGROUP --output text
 ```
 
 > output
