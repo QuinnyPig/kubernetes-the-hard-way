@@ -57,7 +57,7 @@ echo $ROUTETABLE
 # rtb-02c3ef4e030f0d5b2
 aws ec2 create-route --route-table-id $ROUTETABLE --destination-cidr-block 0.0.0.0/0 --gateway-id $INTERNETGW
 aws ec2 modify-subnet-attribute --subnet-id $SUBNET --map-public-ip-on-launch
-
+aws ec2 associate-route-table --route-table-id $ROUTETABLE --subnet-id $SUBNET
 ```
 
 Verify that the route table is associated with the VPC network:
