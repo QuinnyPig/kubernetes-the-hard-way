@@ -68,7 +68,7 @@ The instance internal IP address will be used to advertise the API Server to mem
 INTERNAL_IP=$(curl -s http://169.254.169.254/latest/meta-data/local-ipv4)
 ```
 
-> Note: you may need to set the PUBLICADDRESS environment variable manually. 
+> Note: you may need to set the PUBLICADDRESS environment variable manually. It should be the public address of the load balancer listener created earlier.
 
 Create the `kube-apiserver.service` systemd unit file:
 
