@@ -7,17 +7,6 @@ In this lab you will delete the compute resources created during this tutorial.
 Delete the controller and worker compute instances:
 
 ```
-gcloud -q compute instances delete \
-  controller-0 controller-1 controller-2 \
-  worker-0 worker-1 worker-2 \
-  --zone $(gcloud config get-value compute/zone)
-```
-
-## Networking
-
-Delete the external load balancer network resources:
-
-```
 {
 echo "Kill the worker nodes... " && \
 aws ec2 terminate-instances \
@@ -52,6 +41,8 @@ aws ec2 wait instance-terminated \
 aws ec2 delete-key-pair --key-name kubernetes
 }
 ```
+
+## Networking
 
 Delete the `kubernetes-the-hard-way` networking nonsense:
 
